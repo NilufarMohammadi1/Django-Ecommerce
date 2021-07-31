@@ -39,22 +39,18 @@ def store(request, category_slug=None):
 
 
 def product_detail(request, category_slug, product_slug):
-    cats = Category.objects.all()
     try:
         single_product = Product.objects.get(category__slug=category_slug, slug=product_slug)
-        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request),product=single_product).exists()
+        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=single_product).exists()
     except Exception as e:
         raise e
 
-    
-    
-
+   
+  
     context = {
         'single_product': single_product,
-        'cats':cats,
-        'in_cart':in_cart,
-     
-        
+        'in_cart'       : in_cart,
+       
+      
     }
     return render(request, 'store/product_detail.html', context)
-
